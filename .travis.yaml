@@ -1,8 +1,8 @@
 language: node_js
 
 node_js:
-    - 13
-  
+  - 13
+
 services:
   - docker
 
@@ -16,11 +16,11 @@ before_script:
 
 script:
   - docker --version # print the version for logging
-  - docker build -t udagram-microservices-feed .
-  - docker tag udagram-microservices-feed kdjordan/udagram-microservices-feed:latest
+  - docker build -t simple-node .
+  - docker tag simple-node kdjordan/simple-node:latest
 
 after_success:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker push kdjordan/udagram-microservices-feed
+  - docker push kdjordan/simple-node
 
   
