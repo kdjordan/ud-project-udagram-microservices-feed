@@ -1,21 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: feed-svc
+  name: feed
   labels:
-    app: feed-svc
+    app: feed
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: feed-svc
+      app: feed
   template:
     metadata:
       labels:
-        app: feed-svc
+        app: feed
     spec:
       containers:
-      - name: feed-svc
-        image: kdjordan/ud-project-udagram-microservices-feed
+      - name: udagram-microservices-feed
+        image: kdjordan/udagram-microservices-feed
         ports:
-        - containerPort: 80
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 3
+          periodSeconds: 3

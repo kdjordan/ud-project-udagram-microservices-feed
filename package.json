@@ -1,6 +1,7 @@
 {
   "name": "udagram-microservices-feed",
   "version": "1.0.0",
+  "type": "module",
   "description": "This is an API for /feed endpoint",
   "main": "server.js",
   "scripts": {
