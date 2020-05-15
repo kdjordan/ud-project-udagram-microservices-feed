@@ -2,7 +2,6 @@ import {Sequelize} from 'sequelize-typescript';
 import {config} from './config';
 
 const c = config.postgress
-console.log(c)
 
 export const sequelize = new Sequelize({
   'username': c.username,
