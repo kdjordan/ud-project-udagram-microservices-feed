@@ -20,8 +20,8 @@ import * as c from './config';
   await sequelize.addModels(V0_USER_MODEL)
   await sequelize.addModels(V0_FEEDITEM_MODEL)
   
-  app.listen(8081, () => {
-      console.log('listening on 8081')
+  app.listen(80, () => {
+      console.log('listening on 80')
   })
 
   app.get('/health', (req: Request, res: Response) => {
