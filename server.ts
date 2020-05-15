@@ -23,6 +23,10 @@ import * as c from './config';
   app.listen(8081, () => {
       console.log('listening on 8081')
   })
+
+  app.get('/health', (req: Request, res: Response) => {
+    res.send('USER FEED RUNNING')
+  });
   
   // Get all feed items
   app.get('/', async (req: Request, res: Response) => {
