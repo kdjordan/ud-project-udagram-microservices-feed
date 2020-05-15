@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app
+  name: user-svc
   labels:
-    app: my-app
+    app: user-svc
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: my-app
+      app: user-svc
   template:
     metadata:
       labels:
-        app: my-app
+        app: user-svc
     spec:
       containers:
-      - name: simple-api
-        image: <ECR_REPOSITORY>
+      - name: user-svc
+        image: kdjordan/ud-project-udagram-microservices-feed
         ports:
         - containerPort: 80
