@@ -6,11 +6,7 @@
   "scripts": {
     "start": "node .",
     "tsc": "tsc",
-    "dev": "ts-node-dev --respawn --transpileOnly ./server.ts",
-    "prod": "tsc && node ./www/server.ts",
-    "clean": "rm -rf www/ || true",
-    "build": "npm run clean && tsc && cp -rf src/config www/config && cp .npmrc www/.npmrc && cp package.json www/package.json && cd www && zip -r Archive.zip . && cd ..",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "ts-node-dev --respawn --transpileOnly ./server.ts"
   },
   "repository": {
     "type": "git",
@@ -30,7 +26,9 @@
     "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "email-validator": "^2.0.4",
+    "env-cmd": "^10.1.0",
     "express": "^4.16.4",
     "jsonwebtoken": "^8.5.1",
     "pg": "^7.9.0",

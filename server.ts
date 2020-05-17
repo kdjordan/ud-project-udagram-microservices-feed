@@ -20,12 +20,12 @@ import * as c from './config';
   await sequelize.addModels(V0_USER_MODEL)
   await sequelize.addModels(V0_FEEDITEM_MODEL)
   
-  app.listen(80, () => {
-      console.log('listening on 80')
+  app.listen(8080, () => {
+      console.log('listening on 8080')
   })
 
   app.get('/health', (req: Request , res: Response) => {
-    res.send('USER FEED RUNNING')
+    res.send('FEED SERVICE RUNNING')
   });
   
  // Get all feed items

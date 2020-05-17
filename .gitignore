@@ -1,12 +1,15 @@
 <<<<<<< HEAD
 node_modules
 set_env.sh
+.env
 =======
 <<<<<<< HEAD
 node_modules
 set_env.sh
+.env
 =======
 node_modules/*
 set_env.sh
+.env
 >>>>>>> dev
 >>>>>>> stage
