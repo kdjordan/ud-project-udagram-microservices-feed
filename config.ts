@@ -1,4 +1,3 @@
-
 export const config = {
     "postgress": {
       "username": process.env.POSTGRES_USERNAME,
