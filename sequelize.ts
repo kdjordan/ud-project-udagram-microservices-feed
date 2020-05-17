@@ -2,7 +2,7 @@ require('dotenv').config()
 import {Sequelize} from 'sequelize-typescript';
 import {config} from './config';
 
-const c = config.postgress
+const c = config
 console.log(c)
 
 export const sequelize = new Sequelize({
