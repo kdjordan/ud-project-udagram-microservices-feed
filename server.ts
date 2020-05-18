@@ -27,8 +27,9 @@ import * as AWS from './aws';
   router.get('/favicon.ico', (req, res) => res.status(204));
 
   router.get('/health', (req: Request , res: Response) => {
+    console.log('Health Check Passed')
+    console.log(req)
     res.send('FEED SERVICE UP')
-    return
   })
   
  // Get all feed items
