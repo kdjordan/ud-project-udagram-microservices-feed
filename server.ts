@@ -1,18 +1,22 @@
 const express = require('express')
 
-import { Application, Request, Response } from 'express';
-// import {NextFunction} from 'connect';
+import { Router, Application, Request, Response } from 'express';
+import {NextFunction} from 'connect';
 import {sequelize} from './sequelize';
 import { User } from './models/User';
 import { FeedItem } from './models/FeedItem';
 import { AuthRouter, requireAuth } from './auth.router';
 import * as jwt from 'jsonwebtoken';
 import * as AWS from './aws';
-import * as c from './config';
+
 
 (async() =>{
   
   const app: Application = express();
+
+  const router: Router = Router();
+
+  app.use(router)
 
   const V0_USER_MODEL = [User]
   const V0_FEEDITEM_MODEL = [FeedItem]
@@ -20,17 +24,17 @@ import * as c from './config';
   await sequelize.addModels(V0_USER_MODEL)
   await sequelize.addModels(V0_FEEDITEM_MODEL)
   
-  app.listen(8080, () => {
-      console.log('listening on 8080')
+  router.get('/favicon.ico', (req, res) => res.status(204));
+
+  router.get('/health', (req: Request , res: Response) => {
+    console.log('Health Check Passed')
+    console.log(req)
+    res.send('FEED SERVICE UP')
   })
 
-  app.get('/health', (req: Request , res: Response) => {
-    res.send('FEED SERVICE RUNNING')
-  });
   
  // Get all feed items
-  app.get('/', async (req: Request, res: Response) => {
-    // res.send('FEED UP and healthy')
+  router.get('/', async (req: Request, res: Response) => {
     const items = await FeedItem.findAndCountAll({order: [['id', 'DESC']]});
     items.rows.map((item) => {
       if (item.url) {
@@ -38,10 +42,11 @@ import * as c from './config';
       }
     });
     res.send(items);
+    return
   });
   
   // Get a feed resource
-  app.get('/:id',
+  router.get('/:id',
       async (req: Request, res: Response) => {
         const {id} = req.params;
         const item = await FeedItem.findByPk(id);
@@ -49,7 +54,7 @@ import * as c from './config';
       });
   
   // Get a signed url to put a new item in the bucket
-  app.get('/signed-url/:fileName',
+  router.get('/signed-url/:fileName',
        requireAuth,
       async (req: Request, res: Response) => {
         const {fileName} = req.params;
@@ -58,7 +63,7 @@ import * as c from './config';
       });
   
   // Create feed with metadata
-  app.post('/',
+  router.post('/',
       requireAuth,
       async (req: Request, res: Response) => {
         const caption = req.body.caption;
@@ -82,5 +87,9 @@ import * as c from './config';
         savedItem.url = AWS.getGetSignedUrl(savedItem.url);
         res.status(201).send(savedItem);
       });
+
+      app.listen(8080, () => {
+        console.log('listening on 8080')
+    })
 })();
 
